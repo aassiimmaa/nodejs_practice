@@ -30,7 +30,7 @@
     },
     "husky": {
       "hooks": {
-        "pre-commit": "prettier --single-quote --trailing-comma all --tab-width 4 --write 'src/**/*.{js,json,scss}'"
+        "pre-commit": "lint-staged"
       }
     },
     "dependencies": {
