@@ -8,3 +8,28 @@ h1 {
 h2 {
     color: green;
 }
+
+p {
+    margin: 8px 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+.card-item {
+    margin-top: 16px;
+}
+
+.course-information {
+    text-align: center;
+    background-color: #f3f3f3;
+    padding: 16px;
+    font-weight: bold;
+    font-size: 1.2rem;
+
+    button {
+        margin: 16px 0;
+        font-size: 1.4rem;
+    }
+}

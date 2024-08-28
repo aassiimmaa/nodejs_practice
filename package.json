@@ -5,7 +5,7 @@
     "main": "src/index.js",
     "scripts": {
         "start": "nodemon --inspect src/index.js",
-        "beautiful": "prettier --single-quote --trailing-comma all --tab-width 4 --write 'src/**/*.{js,json,scss}'",
+        "beautiful": "prettier --single-quote --trailing-comma all --tab-width 4 --write 'src/**/*.{js,json,scss,hbs}'",
         "watch": "node-sass -w src/resource/scss -o src/public/css",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
@@ -26,16 +26,18 @@
     },
     "homepage": "https://github.com/aassiimmaa/nodejs_practice#readme",
     "lint-staged": {
-      "src/**/*.{js,json,scss}": "prettier --single-quote --trailing-comma all --tab-width 4 --write"
+        "src/**/*.{js,json,scss}": "prettier --single-quote --trailing-comma all --tab-width 4 --write"
     },
     "husky": {
-      "hooks": {
-        "pre-commit": "lint-staged"
-      }
+        "hooks": {
+            "pre-commit": "lint-staged"
+        }
     },
     "dependencies": {
         "express": "^4.19.2",
-        "express-handlebars": "^8.0.1"
+        "express-handlebars": "^8.0.1",
+        "mongoose": "^8.5.4",
+        "mongoose-slug-generator": "^1.0.4"
     },
     "devDependencies": {
         "husky": "^9.1.5",
