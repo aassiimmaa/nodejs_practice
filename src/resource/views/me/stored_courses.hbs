@@ -22,7 +22,7 @@
                             <i class="bi bi-pencil-square edit_icon"></i>
                         </a>
                         |
-                        <a href="/courses/{{this._id}}/delete">
+                        <a href="" data-bs-whatever="{{this._id}}" data-bs-toggle="modal" data-bs-target="#confirm_dialog">
                             <i class="bi bi-trash delete_icon"></i>
                         </a>
                     </td>
@@ -31,3 +31,46 @@
         </tbody>
     </table>
 </div>
+
+{{!-- form hidden delete --}}
+<h3>Cập nhật khóa học</h3>
+<form name="form_delete" method='POST'></form>
+
+
+{{!-- Modal confirm delete courses --}}
+<div class="modal fade" id="confirm_dialog" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Xóa khóa học</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Nhấn OK để xóa khóa học. Lưu ý, sau khi xóa không thể khôi phục khóa học!
+      </div>
+      <div class="modal-footer">
+        <button id="confirm_delete" type="button" class="btn btn-danger">OK</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+    const confirm_dialog = document.getElementById('confirm_dialog')
+    const delete_btn = document.getElementById('confirm_delete')
+    const form_delete = document.forms['form_delete']
+    var courseID
+
+    if (confirm_dialog) {
+        confirm_dialog.addEventListener('show.bs.modal', event => {
+            const button = event.relatedTarget
+            courseID = button.getAttribute('data-bs-whatever')
+        })
+    }
+
+    delete_btn.onclick = () => {
+        form_delete.action = `/courses/${courseID}?_method=DELETE`
+        form_delete.submit()
+    }
+</script>

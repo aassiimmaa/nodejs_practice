@@ -28,14 +28,32 @@ class CourseController {
 
     //[GET] /courses/:id/edit
     async edit(req, res) {
-        const course = await Course.findById(req.params.id).lean()
-        res.render('courses/edit', {course});
+        try {
+            const course = await Course.findById(req.params.id).lean()
+            res.render('courses/edit', {course});
+        } catch (error) {
+            res.status(400).json({ error: 'ERROR!', details: error.message });
+        }
     }
 
     //[PUT] /courses/:id
     async update(req, res){
-        await Course.findByIdAndUpdate(req.params.id, req.body)
-        res.redirect(`/me/stored/courses`)
+        try {
+            await Course.findByIdAndUpdate(req.params.id, req.body)
+        res.redirect('/me/stored/courses')
+        } catch (error) {
+            res.status(400).json({ error: 'ERROR!', details: error.message });
+        }
+    }
+
+    //[DELETE] /courses/:id
+    async delete(req, res){
+        try {
+            await Course.findByIdAndDelete(req.params.id)
+            res.redirect('back')
+        } catch (error) {
+            res.status(400).json({ error: 'ERROR!', details: error.message });
+        }
     }
 }
 
