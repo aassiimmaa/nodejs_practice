@@ -1,5 +1,5 @@
-<form method='POST' action='store'>
-    <h3>Đăng khóa học</h3>
+<h3>Cập nhật khóa học</h3>
+<form method='POST' action='/courses/{{course._id}}?_method=PUT'>
     <div class='mb-3'>
         <label for='exampleInputEmail1' class='form-label'>Tên khóa học</label>
         <input
@@ -7,6 +7,7 @@
             class='form-control'
             id='exampleInputEmail1'
             name='name'
+            value="{{course.name}}"
         />
     </div>
     <div class='mb-3'>
@@ -16,6 +17,7 @@
             class='form-control'
             id='exampleInputEmail1'
             name='description'
+            value="{{course.description}}"
         />
     </div>
     <div class='mb-3'>
@@ -25,6 +27,7 @@
             class='form-control'
             id='exampleInputEmail1'
             name='videoId'
+            value="{{course.videoId}}"
         />
     </div>
     <div class='mb-3'>
@@ -34,7 +37,8 @@
             class='form-control'
             id='exampleInputEmail1'
             name='level'
+            value="{{course.level}}"
         />
     </div>
-    <button type='submit' class='btn btn-primary'>Submit</button>
+    <button type='submit' class='btn btn-primary'>Lưu lại</button>
 </form>
