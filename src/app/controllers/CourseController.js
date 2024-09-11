@@ -65,6 +65,16 @@ class CourseController {
             res.status(400).json({ error: 'ERROR!', details: error.message });
         }
     }
+
+    //[PATCH] /courses/:id/restore
+    async restore(req, res){
+        try {
+            await Course.restore({_id: req.params.id})
+            res.redirect('back')
+        } catch (error) {
+            res.status(400).json({ error: 'ERROR!', details: error.message });
+        }
+    }
 }
 
 module.exports = new CourseController();

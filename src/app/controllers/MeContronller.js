@@ -13,7 +13,7 @@ class MeContronller {
 
     async deletedCourses(req, res){
         try {
-            const courses = await Course.findDeleted().lean()
+            const courses = await Course.findWithDeleted({deleted: true}).lean()
             res.render('me/deleted_courses', {courses})
         } catch (error) {
             res.send(error)
