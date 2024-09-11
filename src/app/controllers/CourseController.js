@@ -49,7 +49,17 @@ class CourseController {
     //[DELETE] /courses/:id
     async delete(req, res){
         try {
-            await Course.findByIdAndDelete(req.params.id)
+            await Course.delete({_id: req.params.id})
+            res.redirect('back')
+        } catch (error) {
+            res.status(400).json({ error: 'ERROR!', details: error.message });
+        }
+    }
+
+      //[DELETE] /courses/:id/forever
+      async deleteForever(req, res){
+        try {
+            await Course.findByIdAndDelete({_id: req.params.id})
             res.redirect('back')
         } catch (error) {
             res.status(400).json({ error: 'ERROR!', details: error.message });

@@ -1,9 +1,9 @@
 <div class='mt-4'>
-    <h3>Khóa học của tôi</h3>
-    <a class="trash" href="/me/trash/courses">
-        <i class="bi bi-trash3"></i>
-        Thùng rác
+    <a class="back_courses_list" href="/me/stored/courses">
+        <i class="bi bi-arrow-return-left"></i>
+        Danh sách khóa học
     </a>
+    <h3>Khóa học của tôi</h3>
     <table class='table align-middle'>
         <thead>
             <tr class="text-center">
@@ -22,12 +22,12 @@
                     <td class="text-center">{{this.level}}</td>
                     <td class="text-center">{{this.createdAt }}</td>
                     <td class="text-center">
-                        <a href="/courses/{{this._id}}/edit">
-                            <i class="bi bi-pencil-square edit_icon"></i>
+                        <a href="/courses/{{this._id}}/edit" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Khôi phục">
+                            <i class="bi bi-arrow-repeat restore_icon"></i>
                         </a>
                         |
                         <a href="" data-bs-whatever="{{this._id}}" data-bs-toggle="modal" data-bs-target="#confirm_dialog">
-                            <i class="bi bi-trash delete_icon"></i>
+                            <i data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="Xóa vĩnh viễn" class="bi bi-trash delete_icon"></i>
                         </a>
                     </td>
                 </tr>
@@ -65,6 +65,7 @@
 </div>
 
 <script>
+    // Delete course
     const confirm_dialog = document.getElementById('confirm_dialog')
     const delete_btn = document.getElementById('confirm_delete')
     const form_delete = document.forms['form_delete']
@@ -78,7 +79,15 @@
     }
 
     delete_btn.onclick = () => {
-        form_delete.action = `/courses/${courseID}?_method=DELETE`
+        form_delete.action = `/courses/${courseID}/forever?_method=DELETE`
         form_delete.submit()
     }
+
+    //Tooltip
+    document.addEventListener('DOMContentLoaded', function () {
+        const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        const tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
+    });
 </script>

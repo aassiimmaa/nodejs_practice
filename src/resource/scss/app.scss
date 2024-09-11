@@ -60,7 +60,8 @@ a {
     height: 50px;
 }
 
-.edit_icon{
+.edit_icon,
+.restore_icon{
     color: rgba($color: #ffae00, $alpha: 1.0);
     padding: 4px;
     font-size: 1.4rem;
@@ -79,5 +80,20 @@ a {
     &:hover{
         cursor: pointer;
         opacity: 0.7;
+    }
+}
+
+.trash{
+    float: right;
+    color: #ff0000;
+
+    &:hover{
+        opacity: 0.5;
+    }
+}
+
+.return_courses_list{
+    &:hover{
+        opacity: 0.5;
     }
 }

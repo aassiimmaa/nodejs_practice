@@ -11,6 +11,14 @@ class MeContronller {
         }
     }
 
+    async deletedCourses(req, res){
+        try {
+            const courses = await Course.findDeleted().lean()
+            res.render('me/deleted_courses', {courses})
+        } catch (error) {
+            res.send(error)
+        }
+    }
     
 }
 
