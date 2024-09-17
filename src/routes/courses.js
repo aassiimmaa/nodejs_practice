@@ -5,6 +5,7 @@ const courseController = require('../app/controllers/CourseController');
 
 router.get('/create', courseController.create);
 router.post('/store', courseController.store);
+router.post('/many', courseController.deleteMany)
 router.get('/:id/edit', courseController.edit);
 router.delete('/:id/forever', courseController.deleteForever)
 router.delete('/:id', courseController.delete)

@@ -99,19 +99,24 @@ a {
 }
 
 //fix table resize
+.check_selected_row{
+    width: 5%;
+}
+
 .index_table{
     width: 5%;
 }
 
 .name_course{
-    width: 35%;
+    width: 30%;
 }
 
 .level_course{
     width: 25%;
 }
 
-.created_time{
+.created_time,
+.deleted_time{
     width: 25%;
 }
 

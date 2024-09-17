@@ -1,12 +1,16 @@
-<div class='mt-4'>
+<form class='mt-4' method="POST" action="/courses/many">
     <h3>Khóa học của tôi</h3>
     <a class="trash" href="/me/trash/courses">
         <i class="bi bi-trash3"></i>
-        Thùng rác
+        Thùng rác ({{deletedCount}})
     </a>
+    <button type="submit" class="btn btn-primary delete_selected">Xóa tất cả</button>
     <table class='table table_fixed'>
         <thead>
             <tr class="text-center">
+                <th class="check_selected_row" scope="col">
+                    <input id="select_all" type="checkbox" name="select_all">
+                </th>
                 <th class="index_table" scope='col'>STT</th>
                 <th class="name_course" scope='col'>Tên khóa học</th>
                 <th class="level_course" scope='col'>Trình độ</th>
@@ -17,6 +21,9 @@
         <tbody class="table-group-divider">
             {{#each courses}}
                 <tr>
+                    <td class="text-center">
+                        <input class="select_row" type="checkbox" name="check_selected" value="{{this._id}}">
+                    </td>
                     <th class="text-center" scope='row'>{{sum @index 1}}</th>
                     <td>{{this.name}}</td>
                     <td class="text-center">{{this.level}}</td>
@@ -39,7 +46,7 @@
             {{/each}}
         </tbody>
     </table>
-</div>
+</form>
 
 {{!-- form hidden delete --}}
 <form name="form_delete" method='POST'></form>
@@ -91,4 +98,39 @@
             return new bootstrap.Tooltip(tooltipTriggerEl)
         })
     });
+
+
+    //Select ALL
+    const row_seleted = document.querySelectorAll('.select_row')
+    const select_all = document.querySelector('#select_all')
+    const row_checked = () => {
+        var count = 0;
+        row_seleted.forEach((row) => {
+            if (row.checked) {
+                count++;
+            }
+        })
+        return {count, id_slected};
+    }
+   
+    row_seleted.forEach((row) => {
+        row.addEventListener('change', function () {
+            if (row.checked) {
+                console.log(row.value);
+            }
+            if (row_checked().count === row_seleted.length) {
+                select_all.checked = true;
+            } else {
+                select_all.checked = false;
+            }
+        });
+    });
+
+
+
+    select_all.addEventListener('change', function () {
+        row_seleted.forEach((row) => {
+            row.checked = this.checked;
+        })
+    })
 </script>

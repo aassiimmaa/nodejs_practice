@@ -75,6 +75,17 @@ class CourseController {
             res.status(400).json({ error: 'ERROR!', details: error.message });
         }
     }
+
+    //[POST] /courses/many
+    async deleteMany(req, res){
+        try {
+            const ids = req.body;
+            await Course.delete({_id: { $in: ids.check_selected }});
+            res.redirect('back')
+        } catch (error) {
+            res.status(400).json({ error: 'ERROR!', details: error.message });
+        }
+    }
 }
 
 module.exports = new CourseController();
