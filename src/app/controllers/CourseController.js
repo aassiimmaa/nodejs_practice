@@ -86,6 +86,16 @@ class CourseController {
             res.status(400).json({ error: 'ERROR!', details: error.message });
         }
     }
+
+    //[POST] /courses/restore/many
+    async restoreMany(req, res){
+        try {
+            // await Course.restore({_id: req.params.id})
+            // res.redirect('back')
+        } catch (error) {
+            res.status(400).json({ error: 'ERROR!', details: error.message });
+        }
+    }
 }
 
 module.exports = new CourseController();

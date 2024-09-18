@@ -124,4 +124,20 @@ a {
     width: 10%;
 }
 
+.delete_selected{
+    padding: 0;
+    color: #ff0000;
+    display: block;
+
+    &:hover{
+        cursor: pointer;
+        color: #ff0000;
+        opacity: 0.5;
+    }
+}
+
+.disabled{
+    display: none;
+}
+
 

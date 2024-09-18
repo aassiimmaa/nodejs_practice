@@ -1,12 +1,21 @@
-<div class='mt-4'>
+<form class='mt-4' method="POST" action="">
     <a class="back_courses_list" href="/me/stored/courses">
         <i class="bi bi-arrow-return-left"></i>
         Danh sách khóa học
     </a>
     <h3>Khóa học của tôi</h3>
+    <select required>
+        <option value="">-- Hành động --</option>
+        <option value="restore">Khôi phục</option>
+        <option value="delete">Xóa</option>
+    </select>
+    <button type='submit' class='btn btn-primary'>Thực hiện</button>
     <table class='table align-middle'>
         <thead>
             <tr class="text-center">
+                <th class="check_selected_row" scope="col">
+                    <input id="select_all" type="checkbox" name="select_all">
+                </th>
                 <th class="index_table" scope='col'>STT</th>
                 <th class="name_course" scope='col'>Tên khóa học</th>
                 <th class="level_course" scope='col'>Trình độ</th>
@@ -17,6 +26,9 @@
         <tbody class="table-group-divider">
             {{#each courses}}
                 <tr>
+                    <td class="text-center" scope="col">
+                        <input id="select_all" type="checkbox" name="select_all">
+                    </td>
                     <th class="text-center" scope='row'>{{sum @index 1}}</th>
                     <td>{{this.name}}</td>
                     <td class="text-center">{{this.level}}</td>
@@ -38,7 +50,7 @@
             {{/each}}
         </tbody>
     </table>
-</div>
+</form>
 
 {{!-- form hidden delete --}}
 <form name="form_delete" method='POST'></form>

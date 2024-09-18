@@ -1,10 +1,10 @@
-<form class='mt-4' method="POST" action="/courses/many">
+<form name="form_delete_many" class='mt-4' method="POST" action="/courses/many">
     <h3>Khóa học của tôi</h3>
     <a class="trash" href="/me/trash/courses">
         <i class="bi bi-trash3"></i>
         Thùng rác ({{deletedCount}})
     </a>
-    <button type="submit" class="btn btn-primary delete_selected">Xóa tất cả</button>
+    <button type="button" class="btn delete_selected disabled" data-bs-toggle="modal" data-bs-target="#confirm_dialog_many">Xóa tất cả</button>
     <table class='table table_fixed'>
         <thead>
             <tr class="text-center">
@@ -52,7 +52,7 @@
 <form name="form_delete" method='POST'></form>
 
 
-{{!-- Modal confirm delete courses --}}
+{{!-- Modal confirm delete course --}}
 <div class="modal fade" id="confirm_dialog" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -71,10 +71,30 @@
   </div>
 </div>
 
+{{!-- Modal confirm delete many courses --}}
+<div class="modal fade" id="confirm_dialog_many" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Xóa khóa học</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Bạn có muốn xóa các khóa học đã chọn không? Nhấn OK để xóa khóa học!
+      </div>
+      <div class="modal-footer">
+        <button id="confirm_delete_many" type="button" class="btn btn-danger">OK</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
-    //Show modal confirm and sumbit form to delete course
+    //Sumbit form to delete course
     const confirm_dialog = document.getElementById('confirm_dialog')
     const delete_btn = document.getElementById('confirm_delete')
+    const delete_btn_many = document.querySelector('.delete_selected')
     const form_delete = document.forms['form_delete']
     var courseID
 
@@ -89,6 +109,12 @@
         form_delete.action = `/courses/${courseID}?_method=DELETE`
         form_delete.submit()
     }
+
+    //Sumbit form to delete many courses
+    const delete_many_btn = document.getElementById('confirm_delete_many')
+    delete_many_btn.onclick = () => {
+                form_delete_many.submit()
+            }
 
 
     //Tooltip
@@ -110,15 +136,23 @@
                 count++;
             }
         })
-        return {count, id_slected};
+        return count;
+    }
+
+    delete_btn_many.onmousedown = () => {
+        delete_btn_many.style.border = 'none';
+        delete_btn_many.style.color = '#ff0000';
     }
    
     row_seleted.forEach((row) => {
         row.addEventListener('change', function () {
-            if (row.checked) {
-                console.log(row.value);
+            if (row_checked() > 0) {
+                delete_btn_many.classList.remove('disabled')
+            }else {
+                delete_btn_many.classList.add('disabled')
             }
-            if (row_checked().count === row_seleted.length) {
+
+            if (row_checked() === row_seleted.length) {
                 select_all.checked = true;
             } else {
                 select_all.checked = false;
@@ -131,6 +165,11 @@
     select_all.addEventListener('change', function () {
         row_seleted.forEach((row) => {
             row.checked = this.checked;
+            if (row_checked() > 0) {
+                delete_btn_many.classList.remove('disabled')
+            }else {
+                delete_btn_many.classList.add('disabled')
+            }
         })
     })
 </script>
